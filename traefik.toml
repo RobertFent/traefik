@@ -1,0 +1,30 @@
+# specify ports traefik should listen to and give them a name
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+    # route all incoming trafic to tls/ssl
+    [entryPoints.web.http.redirections.entryPoint]
+      to = "websecure"
+      scheme = "https"
+
+  [entryPoints.websecure]
+    address = ":443"
+
+[api]
+  dashboard = true
+
+# enable acme protocol to communicate with lets encrypt to manage certs
+[certificatesResolvers.lets-encrypt.acme]
+  email = "info@robertfent.dev"
+  storage = "acme.json"
+  [certificatesResolvers.lets-encrypt.acme.tlsChallenge]
+
+
+# enable docker listening on new containers in given network
+[providers.docker]
+  watch = true
+  network = "web"
+
+# link file for dynamic config
+[providers.file]
+  filename = "traefik_dynamic.toml"

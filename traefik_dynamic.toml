@@ -1,0 +1,17 @@
+# define middleware for protocol http called easyAuth with type basicAuth
+[http.middlewares.easyAuth.basicAuth]
+  users = [
+      "robert:$apr1$EaJPqPL7$HI3m5pLUx.ZUVYJRVp8Xf0"
+  ]
+
+# define router for api
+[http.routers.api]
+  rule = "Host(`monitor.robertfent.dev`)"
+  # use entrypoint for tls/ssl
+  entrypoints = ["websecure"]
+  # use middleware defined above for auth
+  middlewares = ["easyAuth"]
+  service = "api@internal"
+  # enable tls
+  [http.routers.api.tls]
+    certResolver = "lets-encrypt"
