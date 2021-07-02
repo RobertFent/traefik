@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+    # backend mongo
+    my-mongodb:
+      image: mongo:4.4-bionic
+      container_name: $MONGODB_CONTAINER_NAME
+      ports:
+        - 27017:27017
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=$MONGO_INITDB_ROOT_USERNAME
+        - MONGO_INITDB_ROOT_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD
+      labels:
+        - "traefik.enable=false"
+      volumes:
+        - mongodb:/data/db
+        - mongoconfig:/data/configdb
+      networks:
+        - db
+
+    # gui for mongo    
+    mongo-express:
+      image: "mongo-express"
+      container_name: mongo-express
+      environment:
+        ME_CONFIG_MONGODB_SERVER: $MONGODB_CONTAINER_NAME
+        ME_CONFIG_BASICAUTH_USERNAME: $MONGO_INITDB_ROOT_USERNAME
+        ME_CONFIG_BASICAUTH_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
+        ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_INITDB_ROOT_USERNAME
+        ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_INITDB_ROOT_PASSWORD
+      labels:
+        - "traefik.http.routers.mongo.rule=Host(`mongo-express.robertfent.dev`)"
+        - "traefik.http.routers.mongo.tls=true"
+        - "traefik.http.routers.mongo.tls.certresolver=lets-encrypt"
+        - "traefik.port=8081"
+      depends_on:
+        - $MONGODB_CONTAINER_NAME
+      networks:
+        - db
+        - web
+  
+volumes:
+  mongodb:
+  mongoconfig:
+
+networks:
+  db:
+    external: true
+  web:
+    external: true
