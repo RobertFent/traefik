@@ -8,6 +8,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      - TZ=Europe/Berlin
     volumes:
       # share docker.sock so that traefik process can listen for changes to containers
       - /var/run/docker.sock:/var/run/docker.sock
