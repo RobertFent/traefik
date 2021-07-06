@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   my-deno-website:
-    image: robertfent1/deno-website:v0.2.2
+    image: robertfent1/deno-website:latest
     container_name: my-deno-website
     ports:
       - 8070:8070
@@ -11,8 +11,6 @@ services:
       - "traefik.http.routers.deno.tls=true"
       - "traefik.http.routers.deno.tls.certresolver=lets-encrypt"
       - "traefik.port=8070"
-    volumes:
-      - $PWD/logs/:/app/logs
     networks:
       - db
       - web
