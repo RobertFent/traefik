@@ -6,6 +6,8 @@ services:
     container_name: my-deno-website
     ports:
       - 8070:8070
+    environment:
+      - MODE=1
     labels:
       - "traefik.http.routers.deno.rule=Host(`robertfent.dev`)"
       - "traefik.http.routers.deno.tls=true"
