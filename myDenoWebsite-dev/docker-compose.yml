@@ -13,6 +13,7 @@ services:
       - "traefik.http.routers.deno-dev.tls=true"
       - "traefik.http.routers.deno-dev.tls.certresolver=lets-encrypt"
       - "traefik.port=8071"
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - db
       - web
