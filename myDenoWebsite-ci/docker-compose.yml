@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  my-deno-website-ci:
+    image: robertfent1/deno-website:ci
+    container_name: my-deno-website-ci
+    ports:
+      - $SERVER_PORT_CI:$SERVER_PORT_CI
+    environment:
+      - MODE=2
+    labels:
+      - "traefik.http.routers.deno-ci.rule=Host(`ci-website.robertfent.dev`)"
+      - "traefik.http.routers.deno-ci.tls=true"
+      - "traefik.http.routers.deno-ci.tls.certresolver=lets-encrypt"
+      - "traefik.port=8072"
+      - "com.centurylinklabs.watchtower.enable=true"
+    networks:
+      - db
+      - web
+
+networks:
+  db:
+    external: true
+  web:
+    external: true
