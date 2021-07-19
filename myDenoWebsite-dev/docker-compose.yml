@@ -4,6 +4,7 @@ services:
   my-deno-website-dev:
     image: robertfent1/deno-website:dev
     container_name: my-deno-website-dev
+    restart: unless-stopped
     ports:
       - 8071:8071
     environment:

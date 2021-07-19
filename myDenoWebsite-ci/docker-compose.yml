@@ -4,6 +4,7 @@ services:
   my-deno-website-ci:
     image: robertfent1/deno-website:ci
     container_name: my-deno-website-ci
+    restart: unless-stopped
     ports:
       - $SERVER_PORT_CI:$SERVER_PORT_CI
     environment:

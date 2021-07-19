@@ -5,6 +5,7 @@ services:
     my-mongodb:
       image: mongo:4.4-bionic
       container_name: $MONGODB_CONTAINER_NAME
+      restart: unless-stopped
       ports:
         - 27017:27017
       environment:
@@ -22,6 +23,7 @@ services:
     mongo-express:
       image: "mongo-express"
       container_name: mongo-express
+      restart: unless-stopped
       environment:
         ME_CONFIG_MONGODB_SERVER: $MONGODB_CONTAINER_NAME
         ME_CONFIG_BASICAUTH_USERNAME: $MONGO_INITDB_ROOT_USERNAME

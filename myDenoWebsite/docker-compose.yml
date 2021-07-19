@@ -4,6 +4,7 @@ services:
   my-deno-website:
     image: robertfent1/deno-website:latest
     container_name: my-deno-website
+    restart: unless-stopped
     ports:
       - 8070:8070
     environment:
