@@ -11,8 +11,8 @@ services:
       - "traefik.enable=false"
     environment: 
       - WATCHTOWER_LABEL_ENABLE=true
-      # 5 min intervall for checking for new updates
-      - WATCHTOWER_POLL_INTERVAL=300
+      # 1 min intervall for checking for new updates
+      - WATCHTOWER_POLL_INTERVAL=60
     networks:
       - web
   
