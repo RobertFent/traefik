@@ -9,6 +9,9 @@ services:
       - 8070:8070
     environment:
       - MODE=1
+      - MONGO_USER=$MONGO_INITDB_ROOT_USERNAME
+      - MONGO_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_CONTAINER_NAME=$MONGODB_CONTAINER_NAME
     labels:
       - "traefik.http.routers.deno.rule=Host(`robertfent.dev`)"
       - "traefik.http.routers.deno.tls=true"
