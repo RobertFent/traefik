@@ -34,7 +34,7 @@ services:
         - "traefik.http.routers.mongo.rule=Host(`mongo-express.robertfent.dev`)"
         - "traefik.http.routers.mongo.tls=true"
         - "traefik.http.routers.mongo.tls.certresolver=lets-encrypt"
-        - "traefik.port=8081"
+        - "traefik.port=8079"
       depends_on:
         - $MONGODB_CONTAINER_NAME
       networks:
